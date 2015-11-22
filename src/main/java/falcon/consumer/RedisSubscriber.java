@@ -2,7 +2,6 @@ package falcon.consumer;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RedisSubscriber extends JedisPubSub {
 	
@@ -45,15 +44,5 @@ public class RedisSubscriber extends JedisPubSub {
 			System.out.println("Failed to Persist message " + message + " on channel " + channel);
 		}
 	}
-
-	public void logger(String channel, String message) {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			mapper.readTree(message);
-			System.out.println("Channel " + channel + ": " + message);
-		} catch (Exception ex) {
-			throw new RuntimeException("Failed to parse JSON: " + message, ex);
-		}
-	};
 	
 };
